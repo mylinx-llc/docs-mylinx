@@ -1,0 +1,108 @@
+---
+sidebar_position: 1
+---
+
+# Shorten & Customize Links
+##### Table of Contents  
+* [Types of short links](#types-of-short) 
+* [API key scope](#api-key-scope)
+* [Create Short links](#creating-mylinx-short-links) 
+
+<a name="types-of-short"/>
+
+## Types of short links
+There are two types of short links that can be created in Mylinx. The more customized the link, the more parameters you'll need to pass through in the call.
+
+Back-half of a short link can be customized to some extent, depending on your subscription plan.
+
+
+**Short link with a custom back-half**
+
+<i>https://ezy.ovh/newsupdate</i>
+
+Mylinx's generic domain, with a customized back-half
+
+
+**Mylinx short link**
+
+<i>https://ezy.ovh/L1yFU</i>
+
+Mylinx's generic domain, no customized back-half
+
+<a name="api-key-scope"/>
+
+## API Key scope
+
+#### Can do
+* **View Short URLs**: Access and view details of short URLs that the API Key has created.
+* **Update Short URLs**: Modify properties of short URLs that the API Key has created, such as changing the destination URL or other metadata.
+* **Delete Short URLs**: Remove short URLs that the API Key has created.
+* **Create Short URLs**: Generate new short URLs.
+* **Access URL Analytics**: View analytics (e.g., click statistics) for the short URLs that the API Key has created.
+
+<a name="creating-mylinx-short-links"/>
+
+## Creating Mylinx short links
+
+##### Integration
+* [JavaScript](#js-sdk)
+    * [Installation](#installation)
+    * [In the Browser](#in-the-browser)
+
+
+<a name="js-sdk"/>
+
+### JavaScript Integration
+A javascript Shlink's REST API client for the browser and node.js.
+
+<a name="installation"/>
+
+#### Installation
+``` 
+npm i @shlinkio/shlink-js-sdk
+```
+
+This library provides a main ShlinkApiClient class, which receives some config and allows to consume all endpoints exposed by Shlink API.
+
+In order to perform HTTP requests, it expects an implementation of HttpClient to be provided. This library includes one meant to be used in the browser, which internally uses window.fetch, and one to be used in node.js, which internally uses http.request.
+
+If you have some special needs, you can provide your own implementation, or decorate one of those two.
+
+<a name="in-the-browser"/>
+
+#### In the browser
+
+```js
+import { ShlinkApiClient } from '@shlinkio/shlink-js-sdk';
+import { FetchHttpClient } from '@shlinkio/shlink-js-sdk/browser';
+
+const serverInfo = { baseUrl: 'https://ezy.ovh', apiKey: '12345' };
+const apiClient = new ShlinkApiClient(new FetchHttpClient(), serverInfo);
+```
+
+<a name="in-the-browser"/>
+
+#### In node.js
+```js
+import { ShlinkApiClient } from '@shlinkio/shlink-js-sdk';
+import { NodeHttpClient } from '@shlinkio/shlink-js-sdk/node';
+
+const serverInfo = { baseUrl: 'https://ezy.ovh', apiKey: '12345' };
+const apiClient = new ShlinkApiClient(new NodeHttpClient(), serverInfo);
+
+```
+
+<a name="Custom HTTP client"/>
+
+#### Custom HTTP Client
+```js
+import type { HttpClient } from '@shlinkio/shlink-js-sdk';
+import { ShlinkApiClient } from '@shlinkio/shlink-js-sdk';
+
+class MyHttpClient implements HttpClient {
+  // ...
+}
+
+const serverInfo = { baseUrl: 'https://ezy.ovh', apiKey: '12345' };
+const apiClient = new ShlinkApiClient(new MyHttpClient(), serverInfo);
+```
